@@ -21,6 +21,7 @@ import com.congda.baselibrary.widget.dialog.IMIosCommonDiglog
 import com.congda.baselibrary.widget.dialog.IMSheetViewDialog
 import com.congda.tianjianxin.R
 import com.congda.tianjianxin.ui.activity.RecycleDemoActivity
+import com.congda.tianjianxin.ui.activity.ViewPagerActivity
 import com.congda.tianjianxin.ui.activity.mvp.contract.DemoContract
 import com.congda.tianjianxin.ui.activity.mvp.presenter.DemoPresenter
 import kotlinx.android.synthetic.main.activity_demo.*
@@ -76,6 +77,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
         btn11.setOnClickListener(this)
         btn12.setOnClickListener(this)
         btn13.setOnClickListener(this)
+        btn14.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -118,6 +120,9 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             }
             R.id.btn13->{
                 btn13OnClick()
+            }
+            R.id.btn14->{
+                btn14OnClick()
             }
             R.id.iv1 -> {
                 mPresenter.showSheetView(this)
@@ -197,6 +202,9 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             customView(R.layout.layout_custom_view,scrollable = true,horizontalPadding = true)
             cornerRadius(16f)
         }
+    }
+    private fun btn14OnClick() {
+        startActivity(ViewPagerActivity::class.java,false)
     }
     override fun onDestroy() {
         stopService()

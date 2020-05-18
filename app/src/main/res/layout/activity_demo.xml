@@ -88,6 +88,12 @@
                 android:text="bindService"
                 android:textAllCaps="false"
                 android:id="@+id/btn12"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="分页状态栏"
+                android:textAllCaps="false"
+                android:id="@+id/btn14"/>
             <ImageView
                 android:id="@+id/iv1"
                 android:layout_width="100dp"
