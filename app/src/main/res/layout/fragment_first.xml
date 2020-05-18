@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_f5f5f5"
+    android:orientation="vertical">
+    <com.congda.baselibrary.widget.CommonTitleView
+        android:id="@+id/common_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Demo"
+            android:layout_marginTop="10dp"
+            android:id="@+id/btn1"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="我的设置"
+            android:layout_marginTop="10dp"
+            android:id="@+id/btn2"/>
+    </LinearLayout>
+</LinearLayout>

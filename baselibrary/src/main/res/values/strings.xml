@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">basemodule</string>
+    <string name="im_loading_text">正在加载数据，请稍候...</string>
+    <string name="im_totle_readed">全部已读</string>
+    <string name="im_msg_setting">消息设置</string>
+    <string name="im_error_gif">長寬不小于 %1$dpx，且大小不超過 %2$sM。</string>
+    <string name="im_loading">加载中，请稍候...</string>
+</resources>

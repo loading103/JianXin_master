@@ -1,0 +1,29 @@
+<!--<rotate xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:fromDegrees="0"-->
+<!--    android:interpolator="@android:anim/accelerate_decelerate_interpolator"-->
+<!--    android:pivotX="50%"-->
+<!--    android:pivotY="50%"-->
+<!--    android:toDegrees="360" >-->
+<!--    <bitmap-->
+<!--        android:antialias="true"-->
+<!--        android:filter="true"-->
+<!--        android:src="@mipmap/icon_loading_circle_blue" />-->
+
+<!--</rotate>-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="25dp"
+        android:height="25dp"
+        android:gravity="center">
+        <rotate
+            android:fromDegrees="0"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="360">
+            <bitmap
+                android:antialias="true"
+                android:filter="true"
+                android:src="@mipmap/im_ic_prompt_loading" />
+        </rotate>
+    </item>
+</layer-list>
