@@ -97,7 +97,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="下载资源"
+                android:text="Service下载资源"
                 android:textAllCaps="false"
                 android:id="@+id/btn15"/>
             <ImageView
