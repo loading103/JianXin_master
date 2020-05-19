@@ -26,4 +26,19 @@
         <attr name="is_show_line" format="reference|boolean"/>
         <attr name="is_show_right_arr" format="reference|boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="DrawableTextView">
+        <attr name="dt_top_width" format="dimension"/>
+        <attr name="dt_top_height" format="dimension"/>
+        <attr name="dt_left_width" format="dimension"/>
+        <attr name="dt_left_height" format="dimension"/>
+        <attr name="dt_right_width" format="dimension"/>
+        <attr name="dt_right_height" format="dimension"/>
+        <attr name="dt_bottom_width" format="dimension"/>
+        <attr name="dt_bottom_height" format="dimension"/>
+        <attr name="dt_top_drawable" format="reference"/>
+        <attr name="dt_left_drawable" format="reference"/>
+        <attr name="dt_right_drawable" format="reference"/>
+        <attr name="dt_bottom_drawable" format="reference"/>
+    </declare-styleable>
 </resources>

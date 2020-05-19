@@ -5,4 +5,7 @@
     <string name="main_second">活动</string>
     <string name="main_third">发现</string>
     <string name="main_forth">我的</string>
+    <string name="im_press_say">按住 说话</string>
+    <string name="send">发送</string>
+    <string name="im_send_msg">发送消息...</string>
 </resources>

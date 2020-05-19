@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <com.congda.baselibrary.widget.DrawableCheckBox
+            android:id="@+id/btn_voice_record"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:button="@null"
+            android:checked="false"
+            android:drawableTint="@color/color_969696"
+            android:paddingLeft="10dp"
+            app:dt_left_drawable="@drawable/bg_chat_btn_voice"
+            app:dt_left_height="26dp"
+            app:dt_left_width="26dp" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1">
+            <EditText
+                android:id="@+id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_chat_room_input"
+                android:gravity="center_vertical"
+                android:hint="@string/im_send_msg"
+                android:imeActionLabel="@string/send"
+                android:imeOptions="actionSend"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/color_323232"
+                android:textColorHint="@color/color_969696"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/btn_voice_record_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_chat_voice_record_0"
+                android:gravity="center"
+                android:text="@string/im_press_say"
+                android:textColor="@color/color_969696"
+                android:textSize="15sp"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <com.congda.baselibrary.widget.DrawableCheckBox
+            android:id="@+id/btn_face"
+            android:layout_width="36dp"
+            android:layout_height="46dp"
+            android:button="@null"
+            android:checked="false"
+            android:drawableTint="@color/color_969696"
+            app:dt_right_drawable="@drawable/bg_chat_btn_face"
+            app:dt_right_height="26dp"
+            app:dt_right_width="26dp" />
+
+        <ImageView
+            android:id="@+id/btn_add"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/icon_chat_add"
+            android:tint="@color/color_969696" />
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/more_container"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:visibility="gone" />
+    <FrameLayout
+        android:id="@+id/face_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>

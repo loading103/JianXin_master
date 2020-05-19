@@ -107,6 +107,7 @@ public class ShowLoadiongUtils {
     public  void showLoadingDialogProgress(Context context,int progeress,boolean isdown) {
         if (progressDialog == null) {
             progressDialog = new DialogMessageTypeTwo(context);
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setType(1);
             progressDialog.showDialog();
         }
