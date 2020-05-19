@@ -10,16 +10,23 @@ import com.congda.baselibrary.R;
 
 
 public class ShowLoadiongUtils {
-    private static ProgressDialog pd;
-    private static DialogMessageTypeOne loadingDialog;
-    private static DialogMessageTypeTwo dialogMessage;
-    private static DialogMessageTypeTwo progressDialog;
+    private  ProgressDialog pd;
+    private  DialogMessageTypeOne loadingDialog;
+    private  DialogMessageTypeTwo dialogMessage;
+    private  DialogMessageTypeTwo progressDialog;
+    public  static ShowLoadiongUtils instance;
 
+    public static ShowLoadiongUtils getInstance() {
+        if(instance==null){
+            instance=new ShowLoadiongUtils();
+        }
+        return instance;
+    }
 
     /**
      * 通用Dialog弹窗
      */
-    public static  void showDialog(Context context,String title, String message, DialogInterface.OnClickListener listener ){
+    public  void showDialog(Context context,String title, String message, DialogInterface.OnClickListener listener ){
         final AlertDialog.Builder normalDialog = new AlertDialog.Builder(context);
         normalDialog.setTitle(title);
         normalDialog.setMessage(message);
@@ -37,7 +44,7 @@ public class ShowLoadiongUtils {
     /**
      * 显示加载界面loading(自带)
      */
-    public static void showLoadingTypeZero(Context context) {
+    public  void showLoadingTypeZero(Context context) {
         if(pd!=null&&pd.isShowing()){
             pd.dismiss();
         }
@@ -48,7 +55,7 @@ public class ShowLoadiongUtils {
         pd.show();
     }
 
-    public static void dissloadingTypeZero() {
+    public  void dissloadingTypeZero() {
         if(pd!=null&&pd.isShowing()){
             pd.dismiss();
         }
@@ -56,7 +63,7 @@ public class ShowLoadiongUtils {
     /**
      * 显示加载界面loading(第1种自定义)
      */
-    public static void showLoadingDialogTypeOne(Context context) {
+    public  void showLoadingDialogTypeOne(Context context) {
         if (loadingDialog!=null && loadingDialog.isshow()) {
             loadingDialog.dismiss();
             loadingDialog=null;
@@ -66,7 +73,7 @@ public class ShowLoadiongUtils {
         loadingDialog.show();
     }
 
-    public static void dismissLoadingDialogTypeOne() {
+    public  void dismissLoadingDialogTypeOne() {
         if (loadingDialog != null && loadingDialog.isshow()) {
             loadingDialog.dismiss();
             loadingDialog=null;
@@ -75,7 +82,7 @@ public class ShowLoadiongUtils {
     /**
      * 显示加载界面loading(第2种自定义)
      */
-    public static void showLoadingDialogTypeTwo(Context context,String msg) {
+    public  void showLoadingDialogTypeTwo(Context context,String msg) {
         if (dialogMessage != null) {
             dialogMessage.dissmissDialog();
             dialogMessage = null;
@@ -88,7 +95,7 @@ public class ShowLoadiongUtils {
         dialogMessage.showDialog();
     }
 
-    public static void dismissLoadingDialogTypeTwo() {
+    public  void dismissLoadingDialogTypeTwo() {
         if (dialogMessage != null) {
             dialogMessage.dissmissDialog();
             dialogMessage = null;
@@ -97,7 +104,7 @@ public class ShowLoadiongUtils {
     /**
      * 显示加载界面loading(带进度条)
      */
-    public static void showLoadingDialogProgress(Context context,int progeress) {
+    public  void showLoadingDialogProgress(Context context,int progeress,boolean isdown) {
         if (progressDialog == null) {
             progressDialog = new DialogMessageTypeTwo(context);
             progressDialog.setType(1);
@@ -106,10 +113,9 @@ public class ShowLoadiongUtils {
         if(!progressDialog.isShowing()){
             progressDialog.showDialog();
         }
-        progressDialog.setProgress(progeress);
-    }
-    public static void dismissProgress() {
-        progressDialog.dissmissDialog();
-        progressDialog = null;
+        progressDialog.setProgress(progeress,isdown);
+        if(progeress==100){
+            progressDialog=null;
+        }
     }
 }

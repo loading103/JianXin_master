@@ -45,7 +45,7 @@ public class DownLoadManager {
         return instance;
     }
 
-    public static void load(String downUrl, final ProgressCallBack callBack) {
+    public  void download(String downUrl, final ProgressCallBack callBack) {
         retrofit.create(ApiService.class)
                 .download(downUrl)
                 .subscribeOn(Schedulers.io())//请求网络 在调度者的io线程
@@ -69,7 +69,7 @@ public class DownLoadManager {
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(IMSConfig.BASE_URL)
+                .baseUrl(IMSConfig.BASE_VIDEO_URL)
                 .build();
     }
 

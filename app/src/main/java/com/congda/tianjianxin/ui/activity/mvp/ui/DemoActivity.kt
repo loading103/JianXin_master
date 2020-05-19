@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.text.TextUtils
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
@@ -15,10 +16,12 @@ import com.bigkoo.pickerview.view.TimePickerView
 import com.congda.baselibrary.app.IMSConfig
 import com.congda.baselibrary.base.BaseMvpActivity
 import com.congda.baselibrary.service.BindServiceDemo
+import com.congda.baselibrary.service.DownLoadService
 import com.congda.baselibrary.utils.IMSavePhotoUtil
 import com.congda.baselibrary.utils.IMTimePickerUtils
 import com.congda.baselibrary.widget.dialog.IMIosCommonDiglog
 import com.congda.baselibrary.widget.dialog.IMSheetViewDialog
+import com.congda.baselibrary.widget.loading.ShowLoadiongUtils
 import com.congda.tianjianxin.R
 import com.congda.tianjianxin.ui.activity.RecycleDemoActivity
 import com.congda.tianjianxin.ui.activity.ViewPagerActivity
@@ -29,7 +32,7 @@ import java.io.File
 import java.util.*
 
 
-class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.OnClickListener, IMSheetViewDialog.Callback {
+class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.OnClickListener, IMSheetViewDialog.Callback{
     lateinit  var pvTime: TimePickerView
     lateinit  var pvOptions: OptionsPickerView<Any>
 
@@ -37,6 +40,9 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
     lateinit var mConn: ServiceConnection
     private var isBind : Boolean=false
 
+    lateinit var mdownService: DownLoadService
+    lateinit var mdownConn: ServiceConnection
+    private var downBind : Boolean=false
     override fun getLayoutId(): Int {
         return R.layout.activity_demo
     }
@@ -61,7 +67,28 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
         food.add("B")
         food.add("C")
         pvOptions= IMTimePickerUtils.getOptionsPickerView(this,food);
+        //初始化下载服务
+        initDownLoadService()
     }
+    private fun initDownLoadService() {
+        val intent = Intent(this, DownLoadService::class.java)
+        mdownConn = object : ServiceConnection, DownLoadService.ProcessListener {
+            override fun onServiceConnected(name: ComponentName, service: IBinder) {
+                val bind: DownLoadService.DownBind = service as DownLoadService.DownBind
+                mdownService = bind.service
+                mdownService.setProcessListener(this)
+            }
+            override fun onServiceDisconnected(name: ComponentName) {
+            }
+
+            override fun onProcessListener(pross: Int, erro: String) {
+                showProssDialog(pross,erro)
+            }
+        }
+        downBind = bindService(intent, mdownConn, Context.BIND_AUTO_CREATE)
+
+    }
+
     override fun initListener() {
         iv1.setOnClickListener(this)
         btn1.setOnClickListener(this)
@@ -78,6 +105,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
         btn12.setOnClickListener(this)
         btn13.setOnClickListener(this)
         btn14.setOnClickListener(this)
+        btn15.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -123,6 +151,9 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             }
             R.id.btn14->{
                 btn14OnClick()
+            }
+            R.id.btn15->{
+                btn15OnClick()
             }
             R.id.iv1 -> {
                 mPresenter.showSheetView(this)
@@ -206,6 +237,12 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
     private fun btn14OnClick() {
         startActivity(ViewPagerActivity::class.java,false)
     }
+    /**
+     * service里面下载视屏资源
+     */
+    private fun btn15OnClick() {
+        mdownService.downLoadFile("data/upload/20200508/5eb5530f0019e.mp4")
+    }
     override fun onDestroy() {
         stopService()
         super.onDestroy()
@@ -215,7 +252,6 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
      * 关闭bind服务
      */
     private fun stopService() {
-
         if (isBind) {
             showMessage("关闭Service")
             unbindService(mConn)
@@ -223,6 +259,13 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
                 mServiceDemo.stopSelf()
             }
             isBind = false
+        }
+        if (downBind) {
+            unbindService(mdownConn)
+            if (mdownService != null) {
+                mdownService.stopSelf()
+            }
+            downBind = false
         }
     }
 
@@ -240,6 +283,17 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             2 -> {
                 showToast("2")
             }
+        }
+    }
+
+    /**
+     * 显示下载进度
+     */
+    private fun showProssDialog(pross: Int, erro: String) {
+        if(TextUtils.isEmpty(erro)){
+            ShowLoadiongUtils.getInstance().showLoadingDialogProgress(this,pross,true)
+        }else{
+            showMessage(erro)
         }
     }
 }

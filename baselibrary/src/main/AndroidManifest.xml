@@ -6,6 +6,7 @@
         android:supportsRtl="true">
         <service android:name=".service.StartServiceDemo"/>
         <service android:name=".service.BindServiceDemo"/>
+        <service android:name=".service.DownLoadService"/>
     </application>
 
 </manifest>

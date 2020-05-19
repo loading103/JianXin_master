@@ -97,10 +97,10 @@ public abstract class BaseActivity extends BaseSwipeBackActivity implements Easy
      * 加载中
      */
     protected void showLoadingDialog() {
-        ShowLoadiongUtils.showLoadingDialogTypeTwo(this, getResources().getString(R.string.im_loading));
+        ShowLoadiongUtils.getInstance().showLoadingDialogTypeTwo(this, getResources().getString(R.string.im_loading));
     }
     protected void dissLoadingDialog() {
-        ShowLoadiongUtils.dismissLoadingDialogTypeTwo();
+        ShowLoadiongUtils.getInstance().dismissLoadingDialogTypeTwo();
     }
 
     /**

@@ -9,6 +9,7 @@ public class IMSConfig {
 //    public static final String BASE_URL="http://api-cs.clexin.com/tomato-app/";
 
     public static final String BASE_URL="https://www.wanandroid.com/";
+    public static final String BASE_VIDEO_URL="http://47.75.111.156/";
     public static final String FIRST_OPEN = "first_open";
 
 
@@ -16,7 +17,7 @@ public class IMSConfig {
      * (本带缓存路径)
      * mnt/sdcard/ 即为SD卡根路径
      */
-    public static final String COMMON_PATH = Environment.getExternalStorageDirectory().getPath()+"/jinxin";
+    public static final String COMMON_PATH = Environment.getExternalStorageDirectory().getPath()+"/jianxin";
 
     public static final String PICTURI_PATH =   COMMON_PATH+"/photo/";
 

@@ -74,10 +74,10 @@ public abstract class BaseFragment extends RxFragment {
      * 加载中
      */
     protected void showLoadingDialog() {
-        ShowLoadiongUtils.showLoadingDialogTypeTwo(getActivity(), getResources().getString(R.string.im_loading));
+        ShowLoadiongUtils.getInstance().showLoadingDialogTypeTwo(getActivity(), getResources().getString(R.string.im_loading));
     }
     protected void dissLoadingDialog() {
-        ShowLoadiongUtils.dismissLoadingDialogTypeTwo();
+        ShowLoadiongUtils.getInstance().dismissLoadingDialogTypeTwo();
     }
     /**
      * 通过Class跳转界面
