@@ -25,18 +25,19 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.congda.tianjianxin.R
 import com.congda.tianjianxin.bean.ModelHomeEntrance
 
-class RecycleViewPagerdapter(context: Context,page :Int,pageSize: Int,datas:MutableList<ModelHomeEntrance>) : BaseQuickAdapter<ModelHomeEntrance, BaseViewHolder>(R.layout.item_home_entrance,datas) {
+class RecycleViewPagerdapter(datas:MutableList<ModelHomeEntrance>) : BaseQuickAdapter<ModelHomeEntrance, BaseViewHolder>(R.layout.item_home_entrance,datas) {
     var  page : Int  =-1
     var  pageSize : Int =-1
     var  datas:MutableList<ModelHomeEntrance> = mutableListOf()
     lateinit var  mcontext: Context
-    init {
+
+    constructor(context: Context,page :Int,pageSize: Int,datas:MutableList<ModelHomeEntrance>) : this(datas) {
         this.page=page
         this.pageSize=pageSize
         this.datas=datas
         mcontext=context
-
     }
+
     override fun convert(helper: BaseViewHolder, bean: ModelHomeEntrance?) {
     }
 
