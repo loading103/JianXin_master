@@ -17,7 +17,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="150dp"/>
         <LinearLayout
             android:id="@+id/llcontain"
             android:layout_width="wrap_content"
@@ -26,31 +26,8 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:clickable="true"
-                android:scaleType="centerCrop"
-                android:layout_marginLeft="13dp"
-                android:src="@drawable/dot_selector" />
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:clickable="true"
-                android:scaleType="centerCrop"
-                android:layout_marginLeft="13dp"
-                android:src="@drawable/dot_selector" />
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:clickable="true"
-                android:layout_marginLeft="13dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/dot_selector" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
