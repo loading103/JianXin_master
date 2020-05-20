@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f5f5f5"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+    <com.congda.baselibrary.widget.CommonTitleView
+        android:id="@+id/common_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <CheckedTextView
+        android:id="@+id/tv_anim1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:checked="false"
+        android:textColor="@color/white"
+        android:text="ValueAnimator动画"/>
+    <CheckedTextView
+        android:id="@+id/tv_anim2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:checked="false"
+        android:textColor="@color/white"
+        android:text="objectAnimator动画"/>
+
+    <CheckedTextView
+        android:id="@+id/tv_anim3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:checked="false"
+        android:textColor="@color/white"
+        android:text="帧动画"/>
+
+    <CheckedTextView
+        android:id="@+id/tv_anim4"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:checked="true"
+        android:textColor="@color/white"
+        android:text="旋转动画"/>
+
+    <ImageView
+        android:id="@+id/im_iv_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/ic_launcher" />
+
+</LinearLayout>

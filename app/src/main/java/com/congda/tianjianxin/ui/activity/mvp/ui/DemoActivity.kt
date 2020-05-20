@@ -23,6 +23,7 @@ import com.congda.baselibrary.widget.dialog.IMIosCommonDiglog
 import com.congda.baselibrary.widget.dialog.IMSheetViewDialog
 import com.congda.baselibrary.widget.loading.ShowLoadiongUtils
 import com.congda.tianjianxin.R
+import com.congda.tianjianxin.ui.activity.AnimationActivity
 import com.congda.tianjianxin.ui.activity.RecycleDemoActivity
 import com.congda.tianjianxin.ui.activity.KeyBoardActivity
 import com.congda.tianjianxin.ui.activity.mvp.contract.DemoContract
@@ -106,6 +107,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
         btn13.setOnClickListener(this)
         btn14.setOnClickListener(this)
         btn15.setOnClickListener(this)
+        btn16.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -154,6 +156,9 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             }
             R.id.btn15->{
                 btn15OnClick()
+            }
+            R.id.btn16->{
+                btn16OnClick()
             }
             R.id.iv1 -> {
                 mPresenter.showSheetView(this)
@@ -243,6 +248,14 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
     private fun btn15OnClick() {
         mdownService.downLoadFile("data/upload/20200508/5eb5530f0019e.mp4")
     }
+    /**
+     * service里面下载视屏资源
+     */
+    private fun btn16OnClick() {
+        startActivity(AnimationActivity::class.java,false)
+    }
+
+
     override fun onDestroy() {
         stopService()
         super.onDestroy()
