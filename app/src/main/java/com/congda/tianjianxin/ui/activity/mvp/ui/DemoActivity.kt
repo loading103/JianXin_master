@@ -24,7 +24,7 @@ import com.congda.baselibrary.widget.dialog.IMSheetViewDialog
 import com.congda.baselibrary.widget.loading.ShowLoadiongUtils
 import com.congda.tianjianxin.R
 import com.congda.tianjianxin.ui.activity.RecycleDemoActivity
-import com.congda.tianjianxin.ui.activity.ViewPagerActivity
+import com.congda.tianjianxin.ui.activity.KeyBoardActivity
 import com.congda.tianjianxin.ui.activity.mvp.contract.DemoContract
 import com.congda.tianjianxin.ui.activity.mvp.presenter.DemoPresenter
 import kotlinx.android.synthetic.main.activity_demo.*
@@ -235,7 +235,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
         }
     }
     private fun btn14OnClick() {
-        startActivity(ViewPagerActivity::class.java,false)
+        startActivity(KeyBoardActivity::class.java,false)
     }
     /**
      * service里面下载视屏资源

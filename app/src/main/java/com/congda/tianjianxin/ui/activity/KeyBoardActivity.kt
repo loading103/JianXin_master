@@ -4,12 +4,14 @@ import android.content.Intent
 import com.congda.baselibrary.base.BaseActivity
 import com.congda.tianjianxin.R
 import com.congda.tianjianxin.bean.ModelHomeEntrance
+import com.congda.tianjianxin.utils.ImTextRender
+import com.congda.tianjianxin.widget.EmojiKeyBoard
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.activity_settings.common_top
 import kotlinx.android.synthetic.main.activity_view_pager.*
 import java.util.*
 
-class ViewPagerActivity : BaseActivity(){
+class KeyBoardActivity : BaseActivity(), EmojiKeyBoard.sendContentListener {
     var   lastpositon :Int=0
 
     private var datas= mutableListOf<ModelHomeEntrance>()
@@ -50,10 +52,20 @@ class ViewPagerActivity : BaseActivity(){
 
     override fun initData() {
         vp_title.setData(this,datas)
+        key_board.setSendContentListener(this)
     }
 
     override fun onStop() {
         super.onStop()
         key_board.clickHomeView()
+    }
+
+    override fun sendContent(text: String,type :Int) {
+        when(type){
+            1->{
+                tv_text.text = ImTextRender.renderChatMessage(text)
+            }
+        }
+
     }
 }

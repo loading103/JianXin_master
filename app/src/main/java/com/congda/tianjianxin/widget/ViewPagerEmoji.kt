@@ -15,7 +15,8 @@ import com.congda.tianjianxin.adapter.RecycleEmojidapter
 import kotlinx.android.synthetic.main.item_view_dot.view.*
 import java.util.*
 
-class ViewPagerEmoji : LinearLayout, ViewPager.OnPageChangeListener {
+class ViewPagerEmoji : LinearLayout, ViewPager.OnPageChangeListener,
+    RecycleEmojidapter.emojiClickListener {
     private  var   lastpositon :Int=0
     private var pageSize: Int = 21
     private var datas= mutableListOf<String>()
@@ -51,6 +52,7 @@ class ViewPagerEmoji : LinearLayout, ViewPager.OnPageChangeListener {
             val recyclerView: RecyclerView =  LayoutInflater.from(context).inflate(R.layout.item_home_entrance_vp, viewPager, false) as RecyclerView
             recyclerView.layoutManager = GridLayoutManager(context, 7)
             val adapter = RecycleEmojidapter(context, index, pageSize,datas)
+            adapter.setEmojiClickListener(this)
             recyclerView.adapter = adapter
             viewList.add(recyclerView)
             val view:View= LayoutInflater.from(context).inflate(R.layout.item_view_dot, viewPager, false)
@@ -75,4 +77,16 @@ class ViewPagerEmoji : LinearLayout, ViewPager.OnPageChangeListener {
         lastpositon=position
     }
 
+    override fun emojiChoosed(text: String, res: Int) {
+        emojichooselistener?.emojiChoosed(text,res)
+    }
+
+
+    public interface  emojiChooseListener{
+        fun emojiChoosed(text :String,res:Int)
+    }
+    var emojichooselistener : emojiChooseListener? =null
+    public fun setEmojiClickListener(emojichooselistener :emojiChooseListener){
+        this.emojichooselistener=emojichooselistener
+    }
 }

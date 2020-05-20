@@ -16,9 +16,10 @@
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:id="@+id/tv_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <com.congda.tianjianxin.widget.EmojiKeyBoard
         android:id="@+id/key_board"

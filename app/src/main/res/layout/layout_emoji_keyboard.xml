@@ -27,6 +27,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:paddingTop="5dp"
             android:paddingBottom="5dp">
             <EditText
@@ -41,6 +43,7 @@
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:paddingRight="8dp"
+                android:inputType="text"
                 android:layout_gravity="center"
                 android:paddingLeft="8dp"
                 android:maxHeight="60dp"

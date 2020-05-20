@@ -55,8 +55,15 @@ class RecycleEmojidapter(datas:MutableList<String>) : BaseQuickAdapter<String, B
         val pos: Int = position + page * pageSize
         holder.getView<ImageView>(R.id.entrance_image).setImageResource(FaceUtil.getFaceImageRes(datas[pos]))
         holder.itemView.setOnClickListener{
-            Toast.makeText(mcontext,datas[pos],Toast.LENGTH_SHORT).show()
+            emojilistener?.emojiChoosed(datas[pos],FaceUtil.getFaceImageRes(datas[pos]))
         }
     }
 
+    public interface  emojiClickListener{
+        fun emojiChoosed(text :String,res:Int)
+    }
+      var emojilistener : emojiClickListener? =null
+    public fun setEmojiClickListener(emojilistener :emojiClickListener){
+        this.emojilistener=emojilistener
+    }
 }

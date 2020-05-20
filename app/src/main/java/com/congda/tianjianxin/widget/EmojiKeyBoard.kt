@@ -1,23 +1,28 @@
 package com.congda.tianjianxin.widget
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import android.widget.TextView.OnEditorActionListener
 import cc.shinichi.library.tool.ui.ToastUtil
 import com.congda.baselibrary.utils.IMDensityUtil
 import com.congda.baselibrary.widget.DrawableCheckBox
 import com.congda.tianjianxin.R
 import com.congda.tianjianxin.utils.FaceUtil
+import com.congda.tianjianxin.utils.ImTextRender
 import com.congda.tianjianxin.utils.KeyBoardHeightUtil
 import kotlinx.android.synthetic.main.layout_emoji_keyboard.view.*
 
 /**
  * 在接入的activity中stop()周期调用clickHomeView()  ，处理点home遇到的不正常问题
  */
-class EmojiKeyBoard : LinearLayout, View.OnClickListener {
+class EmojiKeyBoard : LinearLayout, View.OnClickListener, ViewPagerEmoji.emojiChooseListener {
     lateinit var mBtnVoice :DrawableCheckBox
     lateinit var mBtnEmoji :DrawableCheckBox
     lateinit var mBtnAdd :ImageView
@@ -68,6 +73,13 @@ class EmojiKeyBoard : LinearLayout, View.OnClickListener {
         mBtnAdd.setOnClickListener{
             addOnClick()
         }
+        mEtContent.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                sendText()
+                return@OnEditorActionListener true
+            }
+            false
+        })
 
     }
 
@@ -122,7 +134,7 @@ class EmojiKeyBoard : LinearLayout, View.OnClickListener {
             }
 
             val layoutParams = framelayout.layoutParams
-             heights = layoutParams.height
+            heights = layoutParams.height
             layoutParams.height=IMDensityUtil.dip2px(mContext,52f)
             framelayout.layoutParams=layoutParams
 
@@ -246,10 +258,11 @@ class EmojiKeyBoard : LinearLayout, View.OnClickListener {
     private fun initFaceView(): View {
         val inflater = LayoutInflater.from(mContext)
         val v: View = inflater.inflate(R.layout.layout_view_emoji, mEmojiLayout, false)
-        v.findViewById<View>(R.id.btn_send).setOnClickListener{}
+        v.findViewById<View>(R.id.btn_send).setOnClickListener(this)
         val vp_title = v.findViewById<View>(R.id.vp_title) as ViewPagerEmoji
         val faceList: MutableList<String> = FaceUtil.getFaceList()
         vp_title.setData(mContext,faceList)
+        vp_title.setEmojiClickListener(this)
         return v
     }
 
@@ -280,14 +293,55 @@ class EmojiKeyBoard : LinearLayout, View.OnClickListener {
             R.id.btn_location->{
                 ToastUtil.getInstance()._short(mContext,"定位")
             }
-
+            R.id.btn_send->{
+                sendText()
+            }
         }
     }
+
+
+
+    /**
+     * 发送消息
+     */
+    private fun sendText() {
+        if(TextUtils.isEmpty(mEtContent.text.toString())){
+            ToastUtil.getInstance()._short(mContext,"请输入内容")
+            return
+        }
+        sendlistener?.sendContent(mEtContent.text.toString(),1)
+        mEtContent.text.clear()
+    }
+
     /**
      * 在接入的activity中stop()周期调用  ，处理点home遇到的不正常问题
      */
-    public fun clickHomeView() {
+    fun clickHomeView() {
         hideFace()
         hideMore()
+    }
+
+    /**
+     * 选中表情
+     */
+    override fun emojiChoosed(text: String, res: Int) {
+        if (mEtContent != null) {
+            val editable: Editable = mEtContent.text
+            editable.insert(
+                mEtContent.selectionStart,
+                ImTextRender.getFaceImageSpan(text, res)
+            )
+        }
+    }
+
+    /**
+     * type=1是文字表情
+     */
+    public interface  sendContentListener{
+        fun sendContent(text :String,type :Int )
+    }
+    var sendlistener : sendContentListener? =null
+    public fun setSendContentListener(sendlistener :sendContentListener){
+        this.sendlistener=sendlistener
     }
 }
