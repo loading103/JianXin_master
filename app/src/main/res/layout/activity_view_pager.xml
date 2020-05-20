@@ -20,7 +20,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <com.congda.tianjianxin.widget.SofeEmojiKeyBoard
+    <com.congda.tianjianxin.widget.EmojiKeyBoard
         android:id="@+id/key_board"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

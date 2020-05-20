@@ -1,5 +1,6 @@
 package com.congda.tianjianxin.ui.activity
 
+import android.content.Intent
 import com.congda.baselibrary.base.BaseActivity
 import com.congda.tianjianxin.R
 import com.congda.tianjianxin.bean.ModelHomeEntrance
@@ -49,5 +50,10 @@ class ViewPagerActivity : BaseActivity(){
 
     override fun initData() {
         vp_title.setData(this,datas)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        key_board.clickHomeView()
     }
 }

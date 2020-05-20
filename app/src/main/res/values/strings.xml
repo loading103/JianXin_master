@@ -8,4 +8,9 @@
     <string name="im_press_say">按住 说话</string>
     <string name="send">发送</string>
     <string name="im_send_msg">发送消息...</string>
+
+    <string name="im_input_img">图片</string>
+    <string name="im_input_camera">拍摄</string>
+    <string name="im_input_voice">语音输入</string>
+    <string name="im_input_location">位置</string>
 </resources>

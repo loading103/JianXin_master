@@ -6,7 +6,7 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -15,6 +15,7 @@
             android:layout_width="46dp"
             android:layout_height="46dp"
             android:button="@null"
+            android:layout_gravity="bottom"
             android:checked="false"
             android:drawableTint="@color/color_969696"
             android:paddingLeft="10dp"
@@ -22,31 +23,40 @@
             app:dt_left_height="26dp"
             app:dt_left_width="26dp" />
         <FrameLayout
+            android:id="@+id/framelayout"
             android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
             <EditText
                 android:id="@+id/edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/bg_chat_room_input"
                 android:gravity="center_vertical"
                 android:hint="@string/im_send_msg"
                 android:imeActionLabel="@string/send"
                 android:imeOptions="actionSend"
-                android:paddingLeft="8dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
                 android:paddingRight="8dp"
-                android:singleLine="true"
+                android:layout_gravity="center"
+                android:paddingLeft="8dp"
+                android:maxHeight="60dp"
+                android:minHeight="36dp"
+                android:adjustViewBounds="true"
                 android:textColor="@color/color_323232"
                 android:textColorHint="@color/color_969696"
                 android:textSize="15sp" />
             <TextView
                 android:id="@+id/btn_voice_record_edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="36dp"
                 android:background="@drawable/bg_chat_voice_record_0"
                 android:gravity="center"
                 android:text="@string/im_press_say"
+                android:layout_gravity="center"
                 android:textColor="@color/color_969696"
                 android:textSize="15sp"
                 android:visibility="invisible" />
@@ -58,6 +68,7 @@
             android:layout_height="46dp"
             android:button="@null"
             android:checked="false"
+            android:layout_gravity="bottom"
             android:drawableTint="@color/color_969696"
             app:dt_right_drawable="@drawable/bg_chat_btn_face"
             app:dt_right_height="26dp"
@@ -68,6 +79,7 @@
             android:layout_width="46dp"
             android:layout_height="46dp"
             android:paddingLeft="10dp"
+            android:layout_gravity="bottom"
             android:paddingRight="10dp"
             android:src="@mipmap/icon_chat_add"
             android:tint="@color/color_969696" />

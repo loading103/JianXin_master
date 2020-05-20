@@ -6,12 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import cc.shinichi.library.tool.ui.ToastUtil
+import com.congda.baselibrary.utils.IMDensityUtil
 import com.congda.baselibrary.widget.DrawableCheckBox
 import com.congda.tianjianxin.R
 import com.congda.tianjianxin.utils.FaceUtil
 import com.congda.tianjianxin.utils.KeyBoardHeightUtil
+import kotlinx.android.synthetic.main.layout_emoji_keyboard.view.*
 
-class SofeEmojiKeyBoard : LinearLayout {
+/**
+ * 在接入的activity中stop()周期调用clickHomeView()  ，处理点home遇到的不正常问题
+ */
+class EmojiKeyBoard : LinearLayout, View.OnClickListener {
     lateinit var mBtnVoice :DrawableCheckBox
     lateinit var mBtnEmoji :DrawableCheckBox
     lateinit var mBtnAdd :ImageView
@@ -22,8 +28,11 @@ class SofeEmojiKeyBoard : LinearLayout {
     lateinit var mContext: Context
     lateinit var imm: InputMethodManager
     lateinit var mKeyBoardHeightUtil: KeyBoardHeightUtil
-     private var mHandler = android.os.Handler()
-    lateinit var mFaceView:View
+    private var mHandler = android.os.Handler()
+    private var mFaceView : View? =null  //表情控件
+    private var mMoreView : View? = null //更多控件
+
+    private var heights :Int=0  //输入框高度   处理文字多行时的高度  与切换语音
     constructor(context: Context) : super(context) {
         initView(context)
     }
@@ -35,13 +44,13 @@ class SofeEmojiKeyBoard : LinearLayout {
         this.mContext=context
         imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val view: View = LayoutInflater.from(context).inflate(R.layout.layout_emoji_keyboard, this)
-        mBtnVoice = view.findViewById<DrawableCheckBox>(R.id.btn_voice_record)
-        mBtnEmoji= view.findViewById<DrawableCheckBox>(R.id.btn_face)
-        mBtnAdd= view.findViewById<ImageView>(R.id.btn_add)
-        mEtContent= view.findViewById<EditText>(R.id.edit)
-        mTvVoice= view.findViewById<TextView>(R.id.btn_voice_record_edit)
-        mEmojiLayout= view.findViewById<FrameLayout>(R.id.face_container)
-        mMoreLayout= view.findViewById<FrameLayout>(R.id.more_container)
+        mBtnVoice = view.findViewById(R.id.btn_voice_record)
+        mBtnEmoji= view.findViewById(R.id.btn_face)
+        mBtnAdd= view.findViewById(R.id.btn_add)
+        mEtContent= view.findViewById(R.id.edit)
+        mTvVoice= view.findViewById(R.id.btn_voice_record_edit)
+        mEmojiLayout= view.findViewById(R.id.face_container)
+        mMoreLayout= view.findViewById(R.id.more_container)
         initListener()
     }
 
@@ -49,13 +58,54 @@ class SofeEmojiKeyBoard : LinearLayout {
         mBtnVoice.setOnClickListener{
             voiceOnClick()
         }
-        mEmojiLayout.setOnClickListener{
+        mBtnEmoji.setOnClickListener{
             emojiOnClick()
+        }
+        mEtContent.setOnClickListener{
+            hideFace()
+            hideMore()
+        }
+        mBtnAdd.setOnClickListener{
+            addOnClick()
         }
 
     }
 
-
+    /**
+     * 点击更多按钮
+     */
+    private fun addOnClick() {
+        hideFace()
+        hideSoftInput()
+        hideVoiceRecord()
+        if (mHandler != null) {
+            mHandler.postDelayed({ showMore() }, 200)
+        }
+    }
+    /**
+     * 显示更多弹窗
+     */
+    private fun showMore() {
+        if (isMoreShowing()) {
+            return
+        }
+        hideFace()
+        if (mMoreView == null) {
+            mMoreView = initMoreView()
+            mMoreLayout.addView(mMoreView)
+        }
+        mMoreLayout.visibility = View.VISIBLE
+    }
+    /**
+     * 隐藏更多弹窗
+     */
+    private fun hideMore(): Boolean {
+        if (isMoreShowing()) {
+            mMoreLayout.visibility = View.GONE
+            return true
+        }
+        return false
+    }
     /**
      * 点击录音
      */
@@ -66,10 +116,16 @@ class SofeEmojiKeyBoard : LinearLayout {
         if (mBtnVoice.isChecked) {
             hideSoftInput()
             hideFace()
-//            hideMore()
+            hideMore()
             if (mEtContent.visibility == View.VISIBLE) {
                 mEtContent.visibility = View.INVISIBLE
             }
+
+            val layoutParams = framelayout.layoutParams
+             heights = layoutParams.height
+            layoutParams.height=IMDensityUtil.dip2px(mContext,52f)
+            framelayout.layoutParams=layoutParams
+
             if (mTvVoice != null && mTvVoice.visibility != View.VISIBLE) {
                 mTvVoice.visibility = View.VISIBLE
             }
@@ -77,9 +133,15 @@ class SofeEmojiKeyBoard : LinearLayout {
             if (mTvVoice != null && mTvVoice.visibility == View.VISIBLE) {
                 mTvVoice.visibility = View.INVISIBLE
             }
+            if(heights!=0){
+                val layoutParams = framelayout.layoutParams
+                layoutParams.height=heights
+                framelayout.layoutParams=layoutParams
+            }
             if (mEtContent.visibility != View.VISIBLE) {
                 mEtContent.visibility = View.VISIBLE
                 mEtContent.requestFocus()
+                showSoftInput()
             }
         }
     }
@@ -87,7 +149,7 @@ class SofeEmojiKeyBoard : LinearLayout {
      * 点击表情
      */
     private fun emojiOnClick() {
-//        hideMore()
+        hideMore()
         if (mBtnEmoji.isChecked) {
             hideSoftInput()
             hideVoiceRecord()
@@ -99,8 +161,6 @@ class SofeEmojiKeyBoard : LinearLayout {
             showSoftInput()
         }
     }
-
-
     /**
      * 显示表情弹窗
      */
@@ -108,7 +168,7 @@ class SofeEmojiKeyBoard : LinearLayout {
         if (isFaceShowing()) {
             return
         }
-//        hideMore()
+        hideMore()
         if (mFaceView == null) {
             mFaceView = initFaceView()
             mEmojiLayout.addView(mFaceView)
@@ -129,8 +189,6 @@ class SofeEmojiKeyBoard : LinearLayout {
         }
         return false
     }
-
-
     /**
      * 隐藏录音
      */
@@ -146,8 +204,6 @@ class SofeEmojiKeyBoard : LinearLayout {
             }
         }
     }
-
-
 
     /**
      * 显示软键盘
@@ -177,6 +233,12 @@ class SofeEmojiKeyBoard : LinearLayout {
         return mEmojiLayout != null && mEmojiLayout.visibility != View.GONE
     }
 
+    /**
+     * 更多弹窗是否显示
+     */
+    private fun isMoreShowing(): Boolean {
+        return mMoreLayout != null && mMoreLayout.visibility != View.GONE
+    }
 
     /**
      * 初始化表情控件
@@ -186,10 +248,46 @@ class SofeEmojiKeyBoard : LinearLayout {
         val v: View = inflater.inflate(R.layout.layout_view_emoji, mEmojiLayout, false)
         v.findViewById<View>(R.id.btn_send).setOnClickListener{}
         val vp_title = v.findViewById<View>(R.id.vp_title) as ViewPagerEmoji
-        vp_title.setpageSize(7)
         val faceList: MutableList<String> = FaceUtil.getFaceList()
         vp_title.setData(mContext,faceList)
         return v
     }
 
+    /**
+     * 初始化更多
+     */
+    private fun initMoreView(): View {
+        val v: View = LayoutInflater.from(mContext).inflate(R.layout.layout_view_more, null)
+        v.findViewById<View>(R.id.btn_img).setOnClickListener(this)
+        v.findViewById<View>(R.id.btn_camera).setOnClickListener(this)
+        v.findViewById<View>(R.id.btn_voice).setOnClickListener(this)
+        v.findViewById<View>(R.id.btn_location).setOnClickListener(this)
+        return  v
+    }
+
+
+    override fun onClick(p0: View) {
+        when(p0.id){
+            R.id.btn_img->{
+                ToastUtil.getInstance()._short(mContext,"图片")
+            }
+            R.id.btn_camera->{
+                ToastUtil.getInstance()._short(mContext,"照相")
+            }
+            R.id.btn_voice->{
+                ToastUtil.getInstance()._short(mContext,"语音")
+            }
+            R.id.btn_location->{
+                ToastUtil.getInstance()._short(mContext,"定位")
+            }
+
+        }
+    }
+    /**
+     * 在接入的activity中stop()周期调用  ，处理点home遇到的不正常问题
+     */
+    public fun clickHomeView() {
+        hideFace()
+        hideMore()
+    }
 }

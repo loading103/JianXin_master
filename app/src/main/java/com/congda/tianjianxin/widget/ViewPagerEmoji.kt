@@ -29,7 +29,7 @@ class ViewPagerEmoji : LinearLayout, ViewPager.OnPageChangeListener {
         initView(context)
     }
     private fun initView(context: Context) {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.layout_viewpager_title, this)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.layout_viewpager_keybroad, this)
         viewPager = view.findViewById<ViewPager>(R.id.view_pager)
         mllcontain = view.findViewById<LinearLayout>(R.id.llcontain)
     }
