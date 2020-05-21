@@ -30,13 +30,14 @@ class AnimationActivity : BaseActivity(){
 
         }
         tv_anim2.setOnClickListener{
-            animtor.alphaAnimation(tv_anim2)
+            animtor.objectAnimation(tv_anim2)
         }
 
-
+        tv_anim3.setOnClickListener{
+            animtor.FrameAnimation(im_iv_open)
+        }
         tv_anim4.setOnClickListener{
             animtor.roteAnimation(im_iv_add,tv_anim4.isChecked)
-            tv_anim4.isChecked=!tv_anim4.isChecked
         }
     }
 
