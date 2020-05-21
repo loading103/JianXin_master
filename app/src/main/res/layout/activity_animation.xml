@@ -13,7 +13,7 @@
     <CheckedTextView
         android:id="@+id/tv_anim1"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:layout_gravity="center"
         android:gravity="center"
@@ -21,11 +21,11 @@
         android:textAllCaps="false"
         android:checked="false"
         android:textColor="@color/white"
-        android:text="ValueAnimator动画"/>
+        android:text="ValueAnimator（属性动画）"/>
     <CheckedTextView
         android:id="@+id/tv_anim2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:layout_gravity="center"
         android:gravity="center"
@@ -34,12 +34,12 @@
         android:textAllCaps="false"
         android:checked="false"
         android:textColor="@color/white"
-        android:text="objectAnimator动画"/>
+        android:text="objectAnimator（属性动画）"/>
 
     <CheckedTextView
         android:id="@+id/tv_anim3"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:layout_gravity="center"
         android:gravity="center"
@@ -53,7 +53,7 @@
     <CheckedTextView
         android:id="@+id/tv_anim4"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:layout_gravity="center"
         android:gravity="center"
@@ -63,11 +63,24 @@
         android:checked="true"
         android:textColor="@color/white"
         android:text="旋转动画"/>
-
+    <CheckedTextView
+        android:id="@+id/tv_anim5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:checked="true"
+        android:textColor="@color/white"
+        android:text="移动动画"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -88,5 +101,44 @@
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:src="@mipmap/icon_loading_circle_blue" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:id="@+id/lin1"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:background="@color/color_f5f5f5"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="@string/main_forth"
+            android:background="@color/color_0BD2CF"
+            android:gravity="center"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/main_forth"
+            android:background="@color/color_0BD2CF"
+            android:gravity="center"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/main_forth"
+            android:background="@color/color_0BD2CF"
+            android:gravity="center"
+            android:textColor="@color/white"/>
+
     </LinearLayout>
 </LinearLayout>

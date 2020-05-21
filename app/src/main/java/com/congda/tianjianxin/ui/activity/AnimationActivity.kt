@@ -27,10 +27,10 @@ class AnimationActivity : BaseActivity(){
                 animtor.performAnim(tv_anim1.isChecked,tv_anim1)
                 tv_anim1.isChecked=!tv_anim1.isChecked
             }
-
         }
         tv_anim2.setOnClickListener{
-            animtor.objectAnimation(tv_anim2)
+            animtor.objectAnimation(tv_anim2.isChecked,lin1)
+            tv_anim2.isChecked=!tv_anim2.isChecked
         }
 
         tv_anim3.setOnClickListener{
@@ -39,8 +39,14 @@ class AnimationActivity : BaseActivity(){
         tv_anim4.setOnClickListener{
             animtor.roteAnimation(im_iv_add,tv_anim4.isChecked)
         }
+        //空间看似移除屏幕  但是实际还在
+        tv_anim5.setOnClickListener{
+            animtor.translAnimation(lin1,tv_anim5.isChecked)
+            tv_anim5.isChecked=!tv_anim5.isChecked
+        }
+        tv1.setOnClickListener{
+            showMessage("tv1")
+        }
     }
-
-
 
 }

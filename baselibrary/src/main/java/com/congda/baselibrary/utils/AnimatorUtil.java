@@ -3,14 +3,17 @@ package com.congda.baselibrary.utils;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
 import com.congda.baselibrary.R;
@@ -35,9 +38,9 @@ public class AnimatorUtil {
         }
         lastTime=System.currentTimeMillis();
         if(show){
-            va = ValueAnimator.ofInt(IMDensityUtil.dip2px(context,35), IMDensityUtil.dip2px(context,100));
+            va = ValueAnimator.ofInt(IMDensityUtil.dip2px(context,30), IMDensityUtil.dip2px(context,50));
         }else{
-            va = ValueAnimator.ofInt(IMDensityUtil.dip2px(context,100),IMDensityUtil.dip2px(context,35));
+            va = ValueAnimator.ofInt(IMDensityUtil.dip2px(context,50),IMDensityUtil.dip2px(context,30));
         }
         va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -76,37 +79,37 @@ public class AnimatorUtil {
      */
 
     @SuppressLint("WrongConstant")
-    public void  objectAnimation(View view) {
-        ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.3f, 1.0F);
-        ObjectAnimator objectAnimator2 = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.5f);
-        ObjectAnimator objectAnimator3 = ObjectAnimator.ofFloat(view, "translationX", 0.0f, 350.0f, 0.0f);
-        ObjectAnimator objectAnimator4 = ObjectAnimator.ofFloat(view, "rotationX", 0.0f, 180.0f,0.0F,90f);
+    public void  objectAnimation(boolean isdown,View view) {
+//        ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.3f, 1.0F);
+//        ObjectAnimator objectAnimator2 = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.5f);
+//        ObjectAnimator objectAnimator3 = ObjectAnimator.ofFloat(view, "translationX", 0.0f, 350.0f, 0.0f);
+//        ObjectAnimator objectAnimator4 = ObjectAnimator.ofFloat(view, "rotationX", 0.0f, 180.0f,0.0F,90f);
         //监听变化用
-        objectAnimator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//        objectAnimator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//
+//            }
+//        });
 
-            }
-        });
-        objectAnimator1.setDuration(2000);
-        objectAnimator2.setDuration(2000);
-        objectAnimator3.setDuration(2000);
-        objectAnimator4.setDuration(2000);
-
-        objectAnimator1.setRepeatCount(Animation.INFINITE);
-        objectAnimator2.setRepeatCount(Animation.INFINITE);
-        objectAnimator3.setRepeatCount(Animation.INFINITE);
-        objectAnimator4.setRepeatCount(Animation.INFINITE);
-
+        float height = (float)view.getLayoutParams().height;
+        ObjectAnimator  objectAnimator1 =null;
+        ObjectAnimator  objectAnimator2 =null;
+        if(!isdown){
+            objectAnimator1 = ObjectAnimator.ofFloat(view, "translationY", 0.0f, height);
+            objectAnimator2 = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0f);
+        }else {
+            objectAnimator1 = ObjectAnimator.ofFloat(view, "translationY", height, 0.0f);
+            objectAnimator2 = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f);
+        }
+        objectAnimator1.setDuration(900);
+        objectAnimator2.setDuration(900);
         objectAnimator1.setRepeatMode(Animation.RESTART);
         objectAnimator2.setRepeatMode(Animation.RESTART);
-        objectAnimator3.setRepeatMode(Animation.RESTART);
-        objectAnimator4.setRepeatMode(Animation.RESTART);
-
+        objectAnimator1.setInterpolator(new AccelerateDecelerateInterpolator());
+        objectAnimator2.setInterpolator(new AccelerateDecelerateInterpolator());
         objectAnimator1.start();
         objectAnimator2.start();
-        objectAnimator3.start();
-        objectAnimator4.start();
     }
 
     /**
@@ -130,7 +133,32 @@ public class AnimatorUtil {
         operatingAnim.setFillAfter(true);
         view.startAnimation(operatingAnim);
     }
+    /**
+     *移动
+     */
+    @SuppressLint("WrongConstant")
+    public void  translAnimation(View view,boolean isup) {
+        Animation operatingAnim  =null;
+        if(isup){
+            operatingAnim  = AnimationUtils.loadAnimation(context, R.anim.anim_slide_up);
+        }else {
+            operatingAnim  = AnimationUtils.loadAnimation(context, R.anim.anim_slide_down);
+        }
 
+        operatingAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        operatingAnim.setFillAfter(true);
+        view.startAnimation(operatingAnim);
+    }
     /**
      * 帧动画
      */
@@ -140,11 +168,14 @@ public class AnimatorUtil {
         //判断是否在运行
         if(!animationDrawable.isRunning()){
             //开启帧动画
-            animationDrawable.setOneShot(true); //为true时 转一次  停留在最后一帧
+            animationDrawable.setOneShot(false); //为true时 转一次  停留在最后一帧
             animationDrawable.start();
         }else {
+            animationDrawable.selectDrawable(0);//暂停时留在第一帧
             animationDrawable.stop();
-            animationDrawable=null;
+//          animationDrawable=null;
         }
     }
+
+
 }
