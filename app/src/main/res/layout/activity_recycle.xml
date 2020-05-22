@@ -1,22 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f5f5f5"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/magic_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" />
+    <!--AppBarLayout必须为CoordinatorLayout的直接子View-->
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-</LinearLayout>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
+
+
+        <!--CollapsingToolbarLayout Tab标签以上所有的布局都在这里边了，-->
+        <!--小伙伴可以根据自己的需求来改变布局-->
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!--app:layout_scrollFlags="scroll|exitUntilCollapsed" ：就是控制导航栏样式的标签-->
+            <!--这里我就不一一解释了，自己可以百度-->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/app_logo"
+                app:layout_collapseMode="parallax" />
+
+            <!--Toolbar以上的部分，就是你想要实现折叠效果的布局了，这里我就写了一个图片，-->
+            <!--也可以放自己的东西，像：banner轮播图，你就可以放在这里，直接将Imageview换位Banner就好了-->
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/color_f5f5f5"
+                android:paddingTop="20dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="@null">
+                <!--Toolbar中就是导航栏的布局了-->
+                <RelativeLayout
+                    android:id="@+id/ib_back_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/ib_back"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/im_iv_back" />
+                    <TextView
+                        android:id="@+id/toolbar_titletv"
+                        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="5dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:lines="1"
+                        android:scrollHorizontally="true"
+                        android:text="首页"
+                        android:textColor="@android:color/white" />
+
+                    <ImageView
+                        android:id="@+id/ib_right"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/im_iv_back" />
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <!--Tab标签，要注意看布局的位置，在CollapsingToolbarLayout外边-->
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magic_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <!--下边就是滑动的不聚了，要与上边的布局相关联，必须要有 app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <!--这样才能实现折叠的效果-->
+    <!--下方的滑动，可以用RecycleView，但是ListView是不好使的，你可以嵌套在NestedScrollView总试试-->
+    <!--因为ViewPager就需要嵌套在其中才能实现。-->
+    <!--这里还有一个坑，在外层必须要添加android:fillViewport="true"这个标签，让Viewpager填充，不然Viewpager会没有内容-->
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/NestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="always"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
