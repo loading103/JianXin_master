@@ -20,7 +20,7 @@ class RecycleDemoActivity : BaseActivity() {
         return R.layout.activity_recycle
     }
     override fun initView() {
-        val naviga = NavigarUtils.setNaviga(this, datas,view_pager)
+        val naviga = NavigarUtils().setNaviga(this, datas,view_pager)
         magic_indicator.navigator = naviga
     }
     override fun initListener() {

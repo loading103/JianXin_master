@@ -19,7 +19,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
  * 剑之所指，心之所向
  * @date 2020/5/12
  */
-object NavigarUtils {
+class NavigarUtils {
+    constructor()
     fun setNaviga(context: Context, datas: List<String>,view_pager: ViewPager) :CommonNavigator{
         val commonNavigator = CommonNavigator(context)
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
