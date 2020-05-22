@@ -80,6 +80,13 @@
         <activity android:name=".ui.activity.AnimationActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".ui.activity.StartTypeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".ui.activity.StartTypeOneActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.congda.tianjianxin.fileprovider"

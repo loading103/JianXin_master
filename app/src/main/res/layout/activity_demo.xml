@@ -106,6 +106,12 @@
                 android:text="基本动画"
                 android:textAllCaps="false"
                 android:id="@+id/btn16"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="跳转方式"
+                android:textAllCaps="false"
+                android:id="@+id/btn17"/>
             <ImageView
                 android:id="@+id/iv1"
                 android:layout_width="100dp"

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <ImageView
+        android:id="@+id/iv_1"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/app_logo"
+        android:scaleType="fitXY"
+        android:text="共享元素变化按钮1"
+        android:transitionName="iv_1" />
+    <Button
+        android:id="@+id/btn_1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/iv_1"
+        android:layout_marginTop="26dp"
+        android:transitionName="btn_1"
+        android:text="共享元素变化按钮1" />
+
+
+</RelativeLayout>
