@@ -1,6 +1,7 @@
 package com.congda.tianjianxin.ui.activity
 
 import android.graphics.Color
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.congda.baselibrary.base.BaseActivity
 import com.congda.baselibrary.utils.IMStatusBarUtil
@@ -16,7 +17,7 @@ import net.lucode.hackware.magicindicator.ViewPagerHelper
 import kotlin.math.abs
 
 
-class RecycleDemoActivity : BaseActivity() {
+class RecycleDemoActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
     var datas = arrayListOf("列表一", "多布局列表二","列表三")
     var fragments : MutableList<Fragment> = mutableListOf()
 
@@ -40,17 +41,14 @@ class RecycleDemoActivity : BaseActivity() {
         var pagerAdapter = MyViewPagerAdapter(supportFragmentManager, fragments)
         view_pager.adapter = pagerAdapter
         ViewPagerHelper.bind(magic_indicator, view_pager)
+        appBarLayout.addOnOffsetChangedListener(this)
 
-        appBarLayout.addOnOffsetChangedListener( AppBarLayout.OnOffsetChangedListener() {
-                appBarLayout: AppBarLayout, verh: Int ->
-                    toolbar.setBackgroundColor(changeAlpha(resources.getColor(R.color.colorPrimary), abs(verh * 1.0f) / appBarLayout.totalScrollRange))
-        })
     }
 
     /**
      * 根据百分比改变颜色透明度
      */
-    public fun changeAlpha(color: Int, fraction :Float) :Int{
+     fun changeAlpha(color: Int, fraction :Float) :Int{
         val red = Color.red(color);
         val green = Color.green(color);
         val blue = Color.blue(color);
@@ -58,4 +56,19 @@ class RecycleDemoActivity : BaseActivity() {
         return Color.argb(alpha, red, green, blue);
     }
 
+    override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+        Log.e("-----","verticalOffset==="+verticalOffset+"--crollRange--"+appBarLayout.totalScrollRange)
+
+        val abs = abs(verticalOffset * 1.0f) / appBarLayout.totalScrollRange
+        toolbar.setBackgroundColor(changeAlpha(resources.getColor(R.color.color_f5f5f5), abs))
+        toolbar_titletv.setTextColor(changeAlpha(resources.getColor(R.color.color_333333), abs))
+        ib_back.alpha= abs;
+        if(abs>0.9f){
+            IMStatusBarUtil.setLightMode(this)
+            toolbar_titletv.text="列表demo"
+        }else{
+            IMStatusBarUtil.setDarkMode(this)
+            toolbar_titletv.text=""
+        }
+    }
 }
