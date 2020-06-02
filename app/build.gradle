@@ -32,12 +32,14 @@ android {
 
     buildTypes {
         release {
+            manifestPlaceholders = [APP_NAME: "@string/app_name"]
             minifyEnabled false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
+            manifestPlaceholders = [APP_NAME: "@string/app_name_dev"]
             minifyEnabled false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
