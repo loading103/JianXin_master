@@ -18,15 +18,13 @@ import com.congda.baselibrary.base.BaseMvpActivity
 import com.congda.baselibrary.service.BindServiceDemo
 import com.congda.baselibrary.service.DownLoadService
 import com.congda.baselibrary.utils.IMSavePhotoUtil
+import com.congda.baselibrary.utils.IMStatusBarUtil
 import com.congda.baselibrary.utils.IMTimePickerUtils
 import com.congda.baselibrary.widget.dialog.IMIosCommonDiglog
 import com.congda.baselibrary.widget.dialog.IMSheetViewDialog
 import com.congda.baselibrary.widget.loading.ShowLoadiongUtils
 import com.congda.tianjianxin.R
-import com.congda.tianjianxin.ui.activity.AnimationActivity
-import com.congda.tianjianxin.ui.activity.RecycleDemoActivity
-import com.congda.tianjianxin.ui.activity.KeyBoardActivity
-import com.congda.tianjianxin.ui.activity.StartTypeActivity
+import com.congda.tianjianxin.ui.activity.*
 import com.congda.tianjianxin.ui.activity.mvp.contract.DemoContract
 import com.congda.tianjianxin.ui.activity.mvp.presenter.DemoPresenter
 import kotlinx.android.synthetic.main.activity_demo.*
@@ -54,6 +52,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
     override fun initData() {
 
     }
+
 
     override fun initView() {
         common_top.setTopTitle("Demo界面")
@@ -110,6 +109,8 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
         btn15.setOnClickListener(this)
         btn16.setOnClickListener(this)
         btn17.setOnClickListener(this)
+        btn18.setOnClickListener(this)
+        btn19.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -164,6 +165,12 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             }
             R.id.btn17->{
                 btn17OnClick()
+            }
+            R.id.btn18->{
+                btn18OnClick()
+            }
+            R.id.btn19->{
+                btn19OnClick()
             }
             R.id.iv1 -> {
                 mPresenter.showSheetView(this)
@@ -258,8 +265,14 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
     }
     private fun btn17OnClick() {
         startActivity(StartTypeActivity::class.java,false)
-    }
 
+    }
+    private fun btn18OnClick() {
+        startActivity(TxPlayActivity::class.java,false)
+    }
+    private fun btn19OnClick() {
+        startActivity(VideoRecordActivity::class.java,false)
+    }
     override fun onDestroy() {
         stopService()
         super.onDestroy()

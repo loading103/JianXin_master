@@ -1,2 +1,2 @@
 rootProject.name='JianXin_master'
-include ':app', ':baselibrary'
+include ':app', ':baselibrary', ':camera'

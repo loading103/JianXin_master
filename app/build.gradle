@@ -14,6 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+        }
     }
 
     compileOptions {
@@ -63,4 +67,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation project(':baselibrary')
+
+    implementation 'com.tencent.liteavsdk:LiteAVSDK_Smart:latest.release@aar'
+    implementation project(':camera')
 }
