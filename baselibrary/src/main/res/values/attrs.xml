@@ -41,4 +41,7 @@
         <attr name="dt_right_drawable" format="reference"/>
         <attr name="dt_bottom_drawable" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="MyLinearLayout">
+        <attr name="mll_span_count" format="integer"/>
+    </declare-styleable>
 </resources>
