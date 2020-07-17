@@ -50,6 +50,7 @@
         <activity android:name=".ui.activity.mvp.ui.ComWebViewActivity" />
 
         <activity android:name=".ui.activity.mvp.ui.DemoActivity"
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
@@ -88,6 +89,12 @@
             tools:ignore="LockedOrientationActivity"/>
         <activity android:name=".ui.activity.TxPlayActivity" />
         <activity android:name=".ui.activity.VideoRecordActivity" />
+        <activity android:name=".ui.activity.PlayActivity"
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Full"
+            tools:ignore="LockedOrientationActivity" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.congda.tianjianxin.fileprovider"

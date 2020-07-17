@@ -18,16 +18,20 @@ import com.congda.baselibrary.base.BaseMvpActivity
 import com.congda.baselibrary.service.BindServiceDemo
 import com.congda.baselibrary.service.DownLoadService
 import com.congda.baselibrary.utils.IMSavePhotoUtil
-import com.congda.baselibrary.utils.IMStatusBarUtil
 import com.congda.baselibrary.utils.IMTimePickerUtils
+import com.congda.baselibrary.utils.glide.IMImageLoadUtil
 import com.congda.baselibrary.widget.dialog.IMIosCommonDiglog
 import com.congda.baselibrary.widget.dialog.IMSheetViewDialog
+import com.congda.baselibrary.widget.dialogfragment.LoginAgreeDialog
 import com.congda.baselibrary.widget.loading.ShowLoadiongUtils
 import com.congda.tianjianxin.R
+import com.congda.tianjianxin.event.RecordEventEvent
 import com.congda.tianjianxin.ui.activity.*
 import com.congda.tianjianxin.ui.activity.mvp.contract.DemoContract
 import com.congda.tianjianxin.ui.activity.mvp.presenter.DemoPresenter
 import kotlinx.android.synthetic.main.activity_demo.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 import java.util.*
 
@@ -39,8 +43,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
     lateinit var mServiceDemo: BindServiceDemo
     lateinit var mConn: ServiceConnection
     private var isBind : Boolean=false
-
-    lateinit var mdownService: DownLoadService
+     var mdownService: DownLoadService?=null
     lateinit var mdownConn: ServiceConnection
     private var downBind : Boolean=false
     override fun getLayoutId(): Int {
@@ -77,7 +80,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             override fun onServiceConnected(name: ComponentName, service: IBinder) {
                 val bind: DownLoadService.DownBind = service as DownLoadService.DownBind
                 mdownService = bind.service
-                mdownService.setProcessListener(this)
+                mdownService?.setProcessListener(this)
             }
             override fun onServiceDisconnected(name: ComponentName) {
             }
@@ -111,6 +114,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
         btn17.setOnClickListener(this)
         btn18.setOnClickListener(this)
         btn19.setOnClickListener(this)
+        btn20.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -171,6 +175,9 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             }
             R.id.btn19->{
                 btn19OnClick()
+            }
+            R.id.btn20->{
+                btn20OnClick()
             }
             R.id.iv1 -> {
                 mPresenter.showSheetView(this)
@@ -258,7 +265,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
      * service里面下载视屏资源
      */
     private fun btn15OnClick() {
-        mdownService.downLoadFile("data/upload/20200508/5eb5530f0019e.mp4")
+        mdownService?.downLoadFile("data/upload/20200508/5eb5530f0019e.mp4")
     }
     private fun btn16OnClick() {
         startActivity(AnimationActivity::class.java,false)
@@ -268,10 +275,14 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
 
     }
     private fun btn18OnClick() {
-        startActivity(TxPlayActivity::class.java,false)
+        startActivity(PlayActivity::class.java,false)
     }
     private fun btn19OnClick() {
         startActivity(VideoRecordActivity::class.java,false)
+    }
+    private fun btn20OnClick() {
+        val loginDiglog = LoginAgreeDialog()
+        loginDiglog.show(supportFragmentManager, "LoginAgreeDialogFragment")
     }
     override fun onDestroy() {
         stopService()
@@ -293,7 +304,7 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
         if (downBind) {
             unbindService(mdownConn)
             if (mdownService != null) {
-                mdownService.stopSelf()
+                mdownService!!.stopSelf()
             }
             downBind = false
         }
@@ -324,6 +335,22 @@ class DemoActivity : BaseMvpActivity<DemoPresenter>(), DemoContract.View, View.O
             ShowLoadiongUtils.getInstance().showLoadingDialogProgress(this,pross,true)
         }else{
             showMessage(erro)
+        }
+    }
+
+    override fun useEventBus(): Boolean {
+        return true
+    }
+
+
+    /**
+     * 转发图片视屏更新当前界面
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRecordEvent(event: RecordEventEvent) {
+        IMImageLoadUtil.CommonImageLoad(this,event.url,iv1)
+        if(!TextUtils.isEmpty(event.videourl)){
+
         }
     }
 }

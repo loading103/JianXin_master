@@ -7,9 +7,12 @@ import android.util.Log
 import android.view.View
 import com.cjt2325.cameralibrary.listener.JCameraListener
 import com.congda.baselibrary.base.BaseActivity
+import com.congda.baselibrary.utils.IMSavePhotoUtil
 import com.congda.baselibrary.utils.IMStatusBarUtil
 import com.congda.tianjianxin.R
+import com.congda.tianjianxin.event.RecordEventEvent
 import kotlinx.android.synthetic.main.activity_record_video.*
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 
@@ -38,13 +41,17 @@ class VideoRecordActivity : BaseActivity(), JCameraListener {
     override fun initData() {
     }
 
-    override fun recordSuccess(url: String?, firstFrame: Bitmap?) {
+    override fun recordSuccess(url: String, firstFrame: Bitmap?) {
         Log.i("recordSuccess", "url = $url")
+
+        val saveBitmap = IMSavePhotoUtil.saveBitmap(firstFrame, "");
+        EventBus.getDefault().post(RecordEventEvent(saveBitmap,url))
     }
 
     override fun captureSuccess(bitmap: Bitmap?) {
+        val saveBitmap = IMSavePhotoUtil.saveBitmap(bitmap, "");
+        EventBus.getDefault().post(RecordEventEvent(saveBitmap,saveBitmap))
         //获取图片bitmap
-        Log.i("JCameraView", "bitmap = " + bitmap!!.width)
     }
     override fun onResume() {
         super.onResume()

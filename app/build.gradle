@@ -70,4 +70,12 @@ dependencies {
 
     implementation 'com.tencent.liteavsdk:LiteAVSDK_Smart:latest.release@aar'
     implementation project(':camera')
+
+    //视屏播放
+    implementation 'com.shuyu:gsyVideoPlayer-java:7.1.0'
+    implementation 'com.shuyu:GSYVideoPlayer-exo2:7.1.0'
+    implementation 'com.shuyu:gsyVideoPlayer-arm64:7.1.0'
+    implementation 'com.shuyu:gsyVideoPlayer-armv7a:7.1.0'
+
+    implementation 'com.linsea:universalvideoview:1.1.0@aar'
 }

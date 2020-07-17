@@ -49,10 +49,13 @@ class ViewPagerTitle : LinearLayout, ViewPager.OnPageChangeListener {
         val pageCount = Math.ceil(datas.size * 1.0 / pageSize).toInt()
         val viewList: MutableList<View> = ArrayList()
         for (index in 0 until pageCount) { //每个页面都是inflate出一个新实例
+
             val recyclerView: RecyclerView =  LayoutInflater.from(context).inflate(R.layout.item_home_entrance_vp, viewPager, false) as RecyclerView
             recyclerView.layoutManager = GridLayoutManager(context, pageSize/2)
             val adapter = RecycleViewPagerdapter(context, index, pageSize,datas)
             recyclerView.adapter = adapter
+
+
             viewList.add(recyclerView)
             val view:View= LayoutInflater.from(context).inflate(R.layout.item_view_dot, viewPager, false)
             val iv_dot = view.findViewById<ImageView>(R.id.iv_dot)

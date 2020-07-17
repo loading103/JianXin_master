@@ -22,12 +22,7 @@ class TxPlayActivity : BaseActivity(), ITXLivePlayListener {
     var  mLivePlayer: TXLivePlayer?=null
     lateinit var  mPlayConfig: TXLivePlayConfig
     private val mActivityType = 0
-    private var mPlayType =  TXLivePlayer.PLAY_TYPE_LOCAL_VIDEO // player 播放链接类型
-    val ACTIVITY_TYPE_PUBLISH = 1
-    val ACTIVITY_TYPE_LIVE_PLAY = 2
-    val ACTIVITY_TYPE_VOD_PLAY = 3
-    val ACTIVITY_TYPE_LINK_MIC = 4
-    val ACTIVITY_TYPE_REALTIME_PLAY = 5
+    private var mPlayType =  TXLivePlayer.PLAY_TYPE_VOD_MP4 // player 播放链接类型
 
     private var mPlayStarted = false//播放是否开始了
     override fun getLayoutId(): Int {
@@ -61,11 +56,18 @@ class TxPlayActivity : BaseActivity(), ITXLivePlayListener {
     private fun startPlay():Boolean {
         val  playUrl="http://47.75.111.156/data/upload/video/1.mp4"
         mLivePlayer = TXLivePlayer(this)
-        mLivePlayer?.setConfig(TXLivePlayConfig())
+
         mLivePlayer?.setPlayerView(mPlayerView)
         mLivePlayer?.enableHardwareDecode(false)
         mLivePlayer?.setRenderRotation(TXLiveConstants.RENDER_ROTATION_PORTRAIT)
-        mLivePlayer?.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN)
+        mLivePlayer?.setRenderMode(TXLiveConstants.RENDER_MODE_ADJUST_RESOLUTION)
+
+        val mPlayConfig = TXLivePlayConfig()
+        mPlayConfig.setAutoAdjustCacheTime(true)
+        mPlayConfig.setMinAutoAdjustCacheTime(1f)
+        mPlayConfig.setMaxAutoAdjustCacheTime(5f)
+        mLivePlayer?.setConfig(mPlayConfig)
+
         mLivePlayer?.setPlayListener(this)
         var result = mLivePlayer?.startPlay( playUrl, mPlayType) // result返回值：0 success;  -1 empty url; -2 invalid url; -3 invalid playType;
         if (result == 0) {
