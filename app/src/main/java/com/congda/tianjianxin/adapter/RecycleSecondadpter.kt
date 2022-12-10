@@ -32,7 +32,7 @@ class RecycleSecondadpter( data: MutableList<TagsBean>?) : BaseMultiItemQuickAda
         addItemType(TYPE_THREE, R.layout.item_recycle_type_three)
     }
 
-    override fun convert(helper: BaseViewHolder, bean: TagsBean?) {
+    override fun convert(helper: BaseViewHolder, bean: TagsBean) {
         if (bean != null) {
             when(bean.itemType){
                 TYPE_ONE->{

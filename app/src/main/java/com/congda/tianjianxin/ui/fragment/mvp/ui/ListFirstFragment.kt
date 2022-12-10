@@ -78,7 +78,7 @@ class ListFirstFragment : BaseMvpFragment<ListFirstPresenter>(),ListFirstContrac
         refreshLayout.finishLoadMore()
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         showMessage(datas[position])
     }
 

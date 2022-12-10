@@ -38,7 +38,7 @@ class RecycleViewPagerdapter(datas:MutableList<ModelHomeEntrance>) : BaseQuickAd
         mcontext=context
     }
 
-    override fun convert(helper: BaseViewHolder, bean: ModelHomeEntrance?) {
+    override fun convert(helper: BaseViewHolder, bean: ModelHomeEntrance) {
     }
 
     override fun getItemCount(): Int {

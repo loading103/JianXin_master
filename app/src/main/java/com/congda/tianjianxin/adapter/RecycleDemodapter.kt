@@ -21,7 +21,9 @@ import com.congda.tianjianxin.R
 
 class RecycleDemodapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_recycle_type_first) {
 
-    override fun convert(helper: BaseViewHolder, bean: String?) {
+    override fun convert(helper: BaseViewHolder, bean: String) {
         helper.setText(R.id.tv_content, bean)
     }
+
+
 }

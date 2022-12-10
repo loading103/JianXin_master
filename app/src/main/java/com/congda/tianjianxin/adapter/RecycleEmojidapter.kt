@@ -38,7 +38,7 @@ class RecycleEmojidapter(datas:MutableList<String>) : BaseQuickAdapter<String, B
         mcontext=context
     }
 
-    override fun convert(helper: BaseViewHolder, bean: String?) {
+    override fun convert(helper: BaseViewHolder, bean: String) {
     }
 
     override fun getItemCount(): Int {
